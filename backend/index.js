@@ -21,7 +21,7 @@ app.post('/convert', (req, res) => {
 
   const outputPath = path.join(__dirname, safeFilename);
 
-  const command = `yt-dlp -x --audio-format mp3 --audio-quality 0 --ffmpeg-location /opt/homebrew/bin -o "${outputPath}" ${url}`;
+  const command = `yt-dlp -x --audio-format mp3 --audio-quality 0 -o "${outputPath}" ${url}`;
 
   exec(command, (err, stdout, stderr) => {
     if (err) {
