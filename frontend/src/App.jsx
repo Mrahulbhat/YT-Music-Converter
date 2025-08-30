@@ -24,7 +24,7 @@ function App() {
     setSuccess(false);
 
     try {
-      const response = await fetch("http://localhost:3001/convert", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/convert`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url, filename }),
@@ -37,9 +37,9 @@ function App() {
       const blob = await response.blob();
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.download = filename.endsWith('.mp3') ? filename : filename + '.mp3';
+      link.download = filename.endsWith(".mp3") ? filename : filename + ".mp3";
       link.click();
-      
+
       setSuccess(true);
       setTimeout(() => setSuccess(false), 3000);
     } catch (err) {
@@ -58,9 +58,9 @@ function App() {
   };
 
   const styles = {
-    body:{
-      padding:"0",
-      margin:"0",
+    body: {
+      padding: "0",
+      margin: "0",
     },
     container: {
       height: "100vh",
@@ -69,16 +69,17 @@ function App() {
       alignItems: "center",
       justifyContent: "center",
       padding: "20px",
-      fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+      fontFamily:
+        "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
     },
     wrapper: {
       width: "100%",
       maxWidth: "500px",
-      margin: "0 auto"
+      margin: "0 auto",
     },
     header: {
       textAlign: "center",
-      marginBottom: "40px"
+      marginBottom: "40px",
     },
     title: {
       fontSize: "32px",
@@ -88,26 +89,26 @@ function App() {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      gap: "12px"
+      gap: "12px",
     },
     subtitle: {
       fontSize: "16px",
       color: "#a1a1aa",
-      margin: 0
+      margin: 0,
     },
     card: {
       backgroundColor: "#23232a",
       border: "1px solid #27272a",
       borderRadius: "8px",
       padding: "40px",
-      boxShadow: "0 1px 3px rgba(0, 0, 0, 0.3)"
+      boxShadow: "0 1px 3px rgba(0, 0, 0, 0.3)",
     },
     label: {
       display: "block",
       fontSize: "14px",
       fontWeight: "500",
       color: "#e4e4e7",
-      marginBottom: "8px"
+      marginBottom: "8px",
     },
     input: {
       width: "100%",
@@ -120,16 +121,16 @@ function App() {
       color: "#f4f4f5",
       transition: "border-color 0.2s, box-shadow 0.2s",
       marginBottom: "24px",
-      boxSizing: "border-box"
+      boxSizing: "border-box",
     },
     inputFocus: {
       borderColor: "#818cf8",
-      boxShadow: "0 0 0 2px rgba(129, 140, 248, 0.2)"
+      boxShadow: "0 0 0 2px rgba(129, 140, 248, 0.2)",
     },
     inputDisabled: {
       backgroundColor: "#27272a",
       color: "#71717a",
-      cursor: "not-allowed"
+      cursor: "not-allowed",
     },
     button: {
       width: "100%",
@@ -145,15 +146,15 @@ function App() {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      gap: "8px"
+      gap: "8px",
     },
     buttonHover: {
-      backgroundColor: "#1d4ed8" // darker blue
+      backgroundColor: "#1d4ed8", // darker blue
     },
     buttonDisabled: {
       backgroundColor: "#3f3f46",
       color: "#71717a",
-      cursor: "not-allowed"
+      cursor: "not-allowed",
     },
     message: {
       marginTop: "16px",
@@ -162,21 +163,21 @@ function App() {
       fontSize: "14px",
       display: "flex",
       alignItems: "center",
-      gap: "8px"
+      gap: "8px",
     },
     errorMessage: {
       backgroundColor: "#3f1d1d",
       border: "1px solid #7f1d1d",
-      color: "#fca5a5"
+      color: "#fca5a5",
     },
     successMessage: {
       backgroundColor: "#1a2e22",
       border: "1px solid #22c55e",
-      color: "#bbf7d0"
+      color: "#bbf7d0",
     },
     features: {
       marginTop: "24px",
-      textAlign: "center"
+      textAlign: "center",
     },
     featureList: {
       display: "flex",
@@ -185,12 +186,12 @@ function App() {
       gap: "24px",
       fontSize: "14px",
       color: "#a1a1aa",
-      margin: 0
+      margin: 0,
     },
     icon: {
       width: "32px",
       height: "32px",
-      fill: "#ef4444"
+      fill: "#ef4444",
     },
     spinner: {
       width: "16px",
@@ -198,8 +199,8 @@ function App() {
       border: "2px solid transparent",
       borderTop: "2px solid #818cf8",
       borderRadius: "50%",
-      animation: "spin 1s linear infinite"
-    }
+      animation: "spin 1s linear infinite",
+    },
   };
 
   return (
@@ -211,13 +212,13 @@ function App() {
           }
         `}
       </style>
-      
+
       <div style={styles.wrapper}>
         {/* Header */}
         <div style={styles.header}>
           <h1 style={styles.title}>
             <svg style={styles.icon} viewBox="0 0 24 24">
-              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
             </svg>
             YouTube to MP3
           </h1>
@@ -241,7 +242,7 @@ function App() {
               disabled={loading}
               style={{
                 ...styles.input,
-                ...(loading ? styles.inputDisabled : {})
+                ...(loading ? styles.inputDisabled : {}),
               }}
             />
           </div>
@@ -259,7 +260,7 @@ function App() {
               disabled={loading}
               style={{
                 ...styles.input,
-                ...(loading ? styles.inputDisabled : {})
+                ...(loading ? styles.inputDisabled : {}),
               }}
             />
           </div>
@@ -270,11 +271,12 @@ function App() {
             disabled={loading || !url.trim()}
             style={{
               ...styles.button,
-              ...(loading || !url.trim() ? styles.buttonDisabled : {})
+              ...(loading || !url.trim() ? styles.buttonDisabled : {}),
             }}
             onMouseEnter={(e) => {
               if (!loading && url.trim()) {
-                e.target.style.backgroundColor = styles.buttonHover.backgroundColor;
+                e.target.style.backgroundColor =
+                  styles.buttonHover.backgroundColor;
               }
             }}
             onMouseLeave={(e) => {
@@ -289,21 +291,19 @@ function App() {
                 Converting...
               </>
             ) : (
-              <>
-                ⬇ Convert & Download
-              </>
+              <>⬇ Convert & Download</>
             )}
           </button>
 
           {/* Status Messages */}
           {error && (
-            <div style={{...styles.message, ...styles.errorMessage}}>
+            <div style={{ ...styles.message, ...styles.errorMessage }}>
               ⚠ {error}
             </div>
           )}
 
           {success && (
-            <div style={{...styles.message, ...styles.successMessage}}>
+            <div style={{ ...styles.message, ...styles.successMessage }}>
               ✓ Download started successfully!
             </div>
           )}
@@ -318,7 +318,14 @@ function App() {
           </div>
         </div>
         {/* Footer */}
-        <div style={{ textAlign: 'center', marginTop: '32px', color: '#a1a1aa', fontSize: '14px' }}>
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: "32px",
+            color: "#a1a1aa",
+            fontSize: "14px",
+          }}
+        >
           Made by Rahul Bhat
         </div>
       </div>
