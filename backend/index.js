@@ -1,5 +1,6 @@
 const express = require('express');
-const { exec } = require('child_process');
+const youtubedl = require('yt-dlp-exec');
+const ffmpegPath = require('ffmpeg-static');
 const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
@@ -10,7 +11,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
-app.post('/convert', (req, res) => {
+app.post('/convert', async (req, res) => {
   const { url, filename } = req.body;
   if (!url) return res.status(400).send("No URL provided");
   if (!filename) return res.status(400).send("No filename provided");
@@ -21,20 +22,25 @@ app.post('/convert', (req, res) => {
 
   const outputPath = path.join(__dirname, safeFilename);
 
-  const command = `yt-dlp -x --audio-format mp3 --audio-quality 0 -o "${outputPath}" ${url}`;
-
-  exec(command, (err, stdout, stderr) => {
-    if (err) {
-      console.error("Error:", err);
-      console.error("stderr:", stderr);
-      return res.status(500).send("Error converting video: " + stderr);
-    }
-
+  try {
+    await youtubedl(
+      url,
+      {
+        extractAudio: true,
+        audioFormat: 'mp3',
+        audioQuality: 0,
+        ffmpegLocation: ffmpegPath,
+        output: outputPath,
+      }
+    );
     res.download(outputPath, safeFilename, (err) => {
       if (err) console.error(err);
       fs.unlinkSync(outputPath); // delete after sending
     });
-  });
+  } catch (err) {
+    console.error("yt-dlp error:", err);
+    return res.status(500).send("Error converting video: " + err.stderr || err.message);
+  }
 });
 
 const PORT = process.env.PORT || 3001;
