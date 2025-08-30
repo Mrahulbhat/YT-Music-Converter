@@ -5,7 +5,9 @@ const fs = require('fs');
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://yt-music-converter.vercel.app"
+}));
 app.use(express.json());
 
 app.post('/convert', (req, res) => {
